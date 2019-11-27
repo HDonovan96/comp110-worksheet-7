@@ -28,7 +28,6 @@ namespace comp110_worksheet_7
 			long totalSize = 0;
             foreach (string element in elementsInDirectory)
             {
-				Console.WriteLine(element);
                 if (!IsDirectory(element))
                 {
 					totalSize += GetFileSize(element);
@@ -59,11 +58,13 @@ namespace comp110_worksheet_7
 		{
 			string[] elementsInDirectory = Directory.GetFiles(directory);
 			int depth = 0;
+			int elementDepth;
+
 			foreach (string element in elementsInDirectory)
 			{
 				if (IsDirectory(element))
 				{
-					int elementDepth = GetDepth(element) + 1;
+					elementDepth = GetDepth(element) + 1;
 					if (elementDepth > depth)
 					{
 						depth = elementDepth;
