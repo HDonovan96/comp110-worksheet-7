@@ -24,14 +24,11 @@ namespace comp110_worksheet_7
 		// Return the total size, in bytes, of all the files below the given directory
 		public static long GetTotalSize(string directory)
 		{
-            string[] elementsInDirectory = Directory.GetFiles(directory);
+            string[] filesInDirectory = Directory.GetFiles(directory);
 			long totalSize = 0;
-            foreach (string element in elementsInDirectory)
+            foreach (string element in filesInDirectory)
             {
-                if (!IsDirectory(element))
-                {
-					totalSize += GetFileSize(element);
-                }
+				totalSize += GetFileSize(element);
             }
 
 			return totalSize;
@@ -40,14 +37,11 @@ namespace comp110_worksheet_7
 		// Return the number of files (not counting directories) below the given directory
 		public static int CountFiles(string directory)
 		{
-			string[] elementsInDirectory = Directory.GetFiles(directory);
+			string[] filesInDirectory = Directory.GetFiles(directory);
 			int count = 0;
-			foreach (string element in elementsInDirectory)
+			foreach (string element in filesInDirectory)
 			{
-				if (!IsDirectory(element))
-				{
-					count++;
-				}					
+				count++;				
 			}
 
 			return count++;
@@ -56,19 +50,16 @@ namespace comp110_worksheet_7
 		// Return the nesting depth of the given directory. A directory containing only files (no subdirectories) has a depth of 0.
 		public static int GetDepth(string directory)
 		{
-			string[] elementsInDirectory = Directory.GetDirectories(directory);
+			string[] directoriesInDirectory = Directory.GetDirectories(directory);
 			int depth = 0;
 			int elementDepth;
 
-			foreach (string element in elementsInDirectory)
+			foreach (string element in directoriesInDirectory)
 			{
-				if (IsDirectory(element))
+				elementDepth = GetDepth(element) + 1;
+				if (elementDepth > depth)
 				{
-					elementDepth = GetDepth(element) + 1;
-					if (elementDepth > depth)
-					{
-						depth = elementDepth;
-					}
+					depth = elementDepth;
 				}
 			}
 
