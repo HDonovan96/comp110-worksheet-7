@@ -100,7 +100,32 @@ namespace comp110_worksheet_7
 		// Get the path and size (in bytes) of the largest file below the given directory
 		public static Tuple<string, long> GetLargestFile(string directory)
 		{
-			throw new NotImplementedException();
+			string[] elementsInDirectory = Directory.GetFileSystemEntries(directory);
+			Tuple<string, long> largestFile = new Tuple<string, long>(String.Empty, 0);
+			Tuple<string, long> largestFileInSubDir;
+			long currentFileSize;
+
+			foreach (string element in elementsInDirectory)
+			{
+				if (IsDirectory(element))
+				{
+					largestFileInSubDir = GetLargestFile(element);
+					if (largestFile.Item2 < largestFileInSubDir.Item2 || largestFile.Item2 == 0)
+					{
+						largestFile = largestFileInSubDir;
+					}
+				}
+				else
+				{
+					currentFileSize = GetFileSize(element);
+					if (largestFile.Item2 < currentFileSize || largestFile.Item2 == 0)
+					{
+						largestFile = new Tuple<string, long>(element, currentFileSize);
+					}
+				}
+			}
+
+			return largestFile;
 		}
 
 		// Get all files whose size is equal to the given value (in bytes) below the given directory
