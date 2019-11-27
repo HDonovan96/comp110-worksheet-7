@@ -18,7 +18,7 @@ namespace comp110_worksheet_7_tests
 		{
 			// This test exists only to ensure that the base directory exists
 			// If it fails, it suggests that the test framework is misconfigured
-			Assert.IsTrue(Directory.Exists(c_baseDirectory));
+			Assert.IsTrue(Directory.Exists(c_baseDirectory), Directory.GetCurrentDirectory());
 		}
 
 		[Test]

@@ -25,12 +25,19 @@ namespace comp110_worksheet_7
 		public static long GetTotalSize(string directory)
 		{
 			// Gets every file in 'directory'.
-            string[] filesInDirectory = Directory.GetFiles(directory);
+            string[] filesInDirectory = Directory.GetFileSystemEntries(directory);
 			long totalSize = 0;
 			// Adds the size of each file to 'totalSize'
             foreach (string element in filesInDirectory)
             {
-				totalSize += GetFileSize(element);
+				if (IsDirectory(element))
+				{
+					totalSize += GetTotalSize(element);
+				}
+				else
+				{
+					totalSize += GetFileSize(element);
+				}	
             }
 
 			return totalSize;
