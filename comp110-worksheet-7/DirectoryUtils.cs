@@ -24,7 +24,18 @@ namespace comp110_worksheet_7
 		// Return the total size, in bytes, of all the files below the given directory
 		public static long GetTotalSize(string directory)
 		{
-			throw new NotImplementedException();
+            string[] elementsInDirectory = Directory.GetFiles(directory);
+			long totalSize = 0;
+            foreach (string element in elementsInDirectory)
+            {
+                if (!IsDirectory(element))
+                {
+					totalSize += GetFileSize(element);
+                }
+            }
+
+			return totalSize;
+			//throw new NotImplementedException();
 		}
 
 		// Return the number of files (not counting directories) below the given directory
