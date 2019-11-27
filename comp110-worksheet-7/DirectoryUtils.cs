@@ -28,6 +28,7 @@ namespace comp110_worksheet_7
 			long totalSize = 0;
             foreach (string element in elementsInDirectory)
             {
+				Console.WriteLine(element);
                 if (!IsDirectory(element))
                 {
 					totalSize += GetFileSize(element);
@@ -35,13 +36,22 @@ namespace comp110_worksheet_7
             }
 
 			return totalSize;
-			//throw new NotImplementedException();
 		}
 
 		// Return the number of files (not counting directories) below the given directory
 		public static int CountFiles(string directory)
 		{
-			throw new NotImplementedException();
+			string[] elementsInDirectory = Directory.GetFiles(directory);
+			int count = 0;
+			foreach (string element in elementsInDirectory)
+			{
+				if (!IsDirectory(element))
+				{
+					count++;
+				}					
+			}
+
+			return count++;
 		}
 
 		// Return the nesting depth of the given directory. A directory containing only files (no subdirectories) has a depth of 0.
