@@ -69,7 +69,32 @@ namespace comp110_worksheet_7
 		// Get the path and size (in bytes) of the smallest file below the given directory
 		public static Tuple<string, long> GetSmallestFile(string directory)
 		{
-			throw new NotImplementedException();
+			string[] elementsInDirectory = Directory.GetFileSystemEntries(directory);
+			Tuple<string, long> smallestFile = 0;
+			Tuple<string, long> smallestFileInSubDir;
+			long currentFileSize;
+
+			foreach (string element in elementsInDirectory)
+			{
+				if (IsDirectory(element))
+				{
+					smallestFileInSubDir = GetSmallestFile(element);
+					if (smallestFile.Item2 > smallestFileInSubDir.Item2 || smallestFile.Item2 == 0)
+					{
+						smallestFile = smallestFileInSubDir;
+					}
+				}
+				else
+				{
+					currentFileSize = GetFileSize(element);
+					if (smallestFile.Item2 > currentFileSize || smallestFile.Item2 == 0)
+					{
+						smallestFile = new Tuple<string, long>(element, currentFileSize);
+					}
+				}
+			}
+
+			return smallestFile;
 		}
 
 		// Get the path and size (in bytes) of the largest file below the given directory
