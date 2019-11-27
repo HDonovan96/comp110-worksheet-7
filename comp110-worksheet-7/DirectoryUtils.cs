@@ -70,7 +70,7 @@ namespace comp110_worksheet_7
 		public static Tuple<string, long> GetSmallestFile(string directory)
 		{
 			string[] elementsInDirectory = Directory.GetFileSystemEntries(directory);
-			Tuple<string, long> smallestFile = 0;
+			Tuple<string, long> smallestFile = new Tuple<string, long>(String.Empty, 0);
 			Tuple<string, long> smallestFileInSubDir;
 			long currentFileSize;
 
